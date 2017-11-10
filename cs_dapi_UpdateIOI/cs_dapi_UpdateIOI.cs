@@ -45,7 +45,7 @@ namespace com.bloomberg.ioi.samples
         private static readonly Name ERROR_INFO = new Name("ErrorInfo");
         private static readonly Name UPDATE_IOI = new Name("UpdateIOI");
 
-        private string d_emsx;
+        private string d_ioi;
         private string d_host;
         private int d_port;
 
@@ -73,7 +73,7 @@ namespace com.bloomberg.ioi.samples
             // and the values to be used by the SessionOptions object
             // to identify IP/port of the back-end process.
 
-            d_emsx = "//blp/ioiapi-beta-request";
+            d_ioi = "//blp/ioiapi-beta-request";
             d_host = "localhost";
             d_port = 8194;
         }
@@ -147,7 +147,7 @@ namespace com.bloomberg.ioi.samples
                 if (msg.MessageType.Equals(SESSION_STARTED))
                 {
                     System.Console.WriteLine("Session started...");
-                    session.OpenServiceAsync(d_emsx);
+                    session.OpenServiceAsync(d_ioi);
                 }
                 else if (msg.MessageType.Equals(SESSION_STARTUP_FAILURE))
                 {
@@ -165,8 +165,8 @@ namespace com.bloomberg.ioi.samples
             {
                 if (msg.MessageType.Equals(SERVICE_OPENED))
                 {
-                    System.Console.WriteLine("EMSX Service opened... Sending request");
-                    sendUpdateIOI(session, d_emsx);
+                    System.Console.WriteLine("ioi Service opened... Sending request");
+                    sendUpdateIOI(session, d_ioi);
                 }
                 else if (msg.MessageType.Equals(SERVICE_OPEN_FAILURE))
                 {
@@ -211,13 +211,13 @@ namespace com.bloomberg.ioi.samples
             }
         }
 
-        private void sendUpdateIOI(Session session, String emsxSvc)
+        private void sendUpdateIOI(Session session, String ioiSvc)
         {
-            Service service = session.GetService(emsxSvc);
+            Service service = session.GetService(ioiSvc);
             Request request = service.CreateRequest("updateIoi");
 
             Element handle = request.GetElement("handle");
-            handle.SetElement("value", "2f934609-5c43-46ac-8b33-328ddd2c877d");
+            handle.SetElement("value", "832f0c5f-8330-4c50-8cf7-95c1c6f240db");
 
             Element ioi = request.GetElement("ioi");
 
